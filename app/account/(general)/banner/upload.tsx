@@ -47,7 +47,9 @@ export default function BannerUpload(props: ButtonProps) {
 			x: 0,
 			y: 0,
 		});
-		imageInputRef.current?.value && (imageInputRef.current.value = "");
+		if (imageInputRef.current?.value) {
+			imageInputRef.current.value = "";
+		}
 	}
 
 	function onOpenChange() {
@@ -201,7 +203,7 @@ export default function BannerUpload(props: ButtonProps) {
 						<ReactCrop
 							crop={crop}
 							onChange={(_, p) => setCrop(p)}
-							onComplete={(c, _) => setCompletedCrop(c)}
+							onComplete={(c) => setCompletedCrop(c)}
 							aspect={4 / 1}
 							minHeight={100}
 							keepSelection
@@ -244,7 +246,7 @@ export default function BannerUpload(props: ButtonProps) {
 					<ReactCrop
 						crop={crop}
 						onChange={(_, p) => setCrop(p)}
-						onComplete={(c, _) => setCompletedCrop(c)}
+						onComplete={(c) => setCompletedCrop(c)}
 						aspect={3 / 1}
 						minHeight={50}
 						keepSelection

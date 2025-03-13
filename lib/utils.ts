@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function toBoolean(value: unknown): boolean {
-  var strValue = String(value).toLowerCase();
+  let strValue = String(value).toLowerCase();
   strValue = ((!isNaN(Number(strValue)) && strValue !== '0') &&
     strValue !== '' &&
     strValue !== 'null' &&

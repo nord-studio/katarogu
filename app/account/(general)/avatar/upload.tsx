@@ -47,7 +47,9 @@ export default function AvatarUpload(props: ButtonProps) {
 			x: 0,
 			y: 0,
 		});
-		imageInputRef.current?.value && (imageInputRef.current.value = "");
+		if (imageInputRef.current?.value) {
+			imageInputRef.current.value = "";
+		}
 	}
 
 	function onOpenChange() {
@@ -210,7 +212,7 @@ export default function AvatarUpload(props: ButtonProps) {
 						<ReactCrop
 							crop={crop}
 							onChange={(_, p) => setCrop(p)}
-							onComplete={(c, _) => setCompletedCrop(c)}
+							onComplete={(c) => setCompletedCrop(c)}
 							aspect={1 / 1}
 							minHeight={100}
 							circularCrop
@@ -254,7 +256,7 @@ export default function AvatarUpload(props: ButtonProps) {
 					<ReactCrop
 						crop={crop}
 						onChange={(_, p) => setCrop(p)}
-						onComplete={(c, _) => setCompletedCrop(c)}
+						onComplete={(c) => setCompletedCrop(c)}
 						aspect={1 / 1}
 						minHeight={256}
 						circularCrop

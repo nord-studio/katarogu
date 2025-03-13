@@ -46,7 +46,7 @@ export async function POST(request: Request) {
 	} else {
 		await client.connect();
 
-		client.db().collection<{ _id: string, type: string, size: number, data: any }>("banners").replaceOne({
+		client.db().collection<{ _id: string, type: string, size: number, data: Buffer }>("banners").replaceOne({
 			_id: user.id,
 		}, {
 			type: file.type,

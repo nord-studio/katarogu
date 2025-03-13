@@ -18,7 +18,7 @@ export default function PrivacyFields({ user }: { user: User }) {
 	const save = (formData: FormData, message?: string) => {
 		toast.promise(updateUser(formData), {
 			loading: "Saving...",
-			success: (data) => {
+			success: () => {
 				router.refresh();
 				return message ?? "Your changes have been saved.";
 			},

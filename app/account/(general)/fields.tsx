@@ -17,7 +17,7 @@ export default function GeneralAccountFields({ user }: { user: User }) {
 	const handleSave = (formData: FormData, message?: string) => {
 		toast.promise(updateUser(formData), {
 			loading: "Saving...",
-			success: (data) => {	
+			success: () => {
 				router.refresh();
 				return message ?? "Your changes have been saved.";
 			},

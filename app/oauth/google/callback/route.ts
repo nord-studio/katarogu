@@ -36,8 +36,9 @@ export async function GET(request: Request): Promise<Response> {
 	let tokens: OAuth2Tokens;
 	try {
 		tokens = await google.validateAuthorizationCode(code, codeVerifier);
-	} catch (e) {
+	} catch (err) {
 		// Invalid code or client credentials
+		console.error(err);
 		return new Response(null, {
 			status: 302,
 			headers: {

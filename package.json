@@ -34,7 +34,6 @@
 		"next-themes": "^0.4.6",
 		"nodemailer": "^6.10.0",
 		"nuqs": "^2.4.1",
-		"oslo": "^1.2.1",
 		"react": "19.0.0",
 		"react-dom": "19.0.0",
 		"react-image-crop": "^11.0.7",
@@ -46,12 +45,15 @@
 		"vaul": "^1.1.2"
 	},
 	"devDependencies": {
+		"@eslint/eslintrc": "^3",
+		"@eslint/js": "^9.22.0",
+		"@next/eslint-plugin-next": "^15.2.2",
 		"@tailwindcss/postcss": "^4.0.13",
 		"@types/node": "^22.13.10",
 		"@types/nodemailer": "^6.4.17",
 		"@types/react": "^19.0.10",
 		"@types/react-dom": "^19.0.4",
-		"eslint": "^9.22.0",
+		"eslint": "^9",
 		"eslint-config-next": "15.2.2",
 		"postcss": "^8.5.3",
 		"tailwindcss": "^4.0.13",
@@ -59,7 +61,9 @@
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
-			"@parcel/watcher"
+			"@parcel/watcher",
+			"esbuild",
+			"sharp"
 		]
 	}
 }

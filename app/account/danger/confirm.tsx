@@ -27,7 +27,6 @@ import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { User } from "@/auth/sessions";
 import { toast } from "sonner";
 import { deleteUser } from "@/auth/user/actions";
-import { Alert } from "@/components/ui/alert";
 
 export function DeleteAccountConfirm({
 	user,
@@ -63,7 +62,7 @@ export function DeleteAccountConfirm({
 	const handleDelete = () => {
 		toast.promise(deleteUser, {
 			loading: "Deleting...",
-			success: (_data) => {
+			success: () => {
 				return "Your account has been deleted."
 			},
 			error: "Something went wrong. Your account couldn't be deleted.",

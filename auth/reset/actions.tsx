@@ -3,9 +3,9 @@
 import { ActionResult } from "@/components/form";
 import client from "@/lib/mongodb";
 import { render } from "jsx-email";
-import { createDate, TimeSpan } from "oslo";
-import { alphabet, generateRandomString, sha256 } from "oslo/crypto";
-import { encodeHex } from "oslo/encoding";
+import { generateRandomString, RandomReader } from "@oslojs/crypto/random";
+import { sha256 } from "@oslojs/crypto/sha2";
+import { encodeHexLowerCase } from "@oslojs/encoding";
 import { hash } from "@node-rs/argon2";
 import { redirect } from "next/navigation";
 import { createTransport } from "nodemailer";
@@ -13,6 +13,7 @@ import ResetPasswordEmail from "./email";
 import { verifyEmailInput } from "../email";
 import { createSession, generateSessionToken, invalidateSession } from "../sessions";
 import { setSessionTokenCookie } from "../cookies";
+import { createDate, TimeSpan } from "@/auth/time";
 
 // Email functions
 export async function generateResetPasswordToken(userId: string, email: string): Promise<string> {
@@ -24,8 +25,14 @@ export async function generateResetPasswordToken(userId: string, email: string):
 		await client.db().collection("password_reset_tokens").deleteOne({ _id: token._id });
 	}
 
-	const token = generateRandomString(64, alphabet("0-9", "A-Z", "a-z"));
-	const sha = encodeHex(await sha256(new TextEncoder().encode(token)));
+	const alphabet = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	const random: RandomReader = {
+		read(bytes) {
+			crypto.getRandomValues(bytes);
+		}
+	};
+	const token = generateRandomString(random, alphabet, 64);
+	const sha = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 
 	await client.db().collection("password_reset_tokens").insertOne({
 		user_id: userId,
@@ -137,7 +144,7 @@ export async function resetPassword(_: unknown, formData: FormData): Promise<Act
 	await client.connect();
 
 	// Plain token from URL converted to sha256
-	const sha = encodeHex(await sha256(new TextEncoder().encode(token)));
+	const sha = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 
 	const data = await client.db().collection("password_reset_tokens").findOne({ token: sha });
 

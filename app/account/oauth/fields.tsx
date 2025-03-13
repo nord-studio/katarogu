@@ -54,7 +54,7 @@ export default function OAuthFields({ user }: { user: User }) {
 	const save = (formData: FormData, message?: string) => {
 		toast.promise(updateUser(formData), {
 			loading: "Saving...",
-			success: (data) => {
+			success: () => {
 				router.refresh();
 				return message ?? "Your changes have been saved.";
 			},
@@ -199,19 +199,6 @@ export default function OAuthFields({ user }: { user: User }) {
 				title="Automatic Linking"
 				description="You can choose to automatically link external accounts when you log in with OAuth with the same email address."
 				footer={`Your account is currently set to ${user.oauth_auto_link ? "automatically link" : "not automatically link"} accounts.`}
-				children={
-					<>
-						<div className="flex items-center space-x-2">
-							<Checkbox checked={autoLink} onCheckedChange={(c) => setAutoLink(!autoLink)} />
-							<label
-								htmlFor="terms"
-								className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-							>
-								Enable automatic linking
-							</label>
-						</div>
-					</>
-				}
 				action={
 					<>
 						<Button size="sm" onClick={async () => {
@@ -224,7 +211,17 @@ export default function OAuthFields({ user }: { user: User }) {
 						</Button>
 					</>
 				}
-			/>
+			>
+				<div className="flex items-center space-x-2">
+					<Checkbox checked={autoLink} onCheckedChange={() => setAutoLink(!autoLink)} />
+					<label
+						htmlFor="terms"
+						className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+					>
+						Enable automatic linking
+					</label>
+				</div>
+			</AccountCard>
 		</>
 	)
 }

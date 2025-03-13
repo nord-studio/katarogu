@@ -1,4 +1,4 @@
-import { getCurrentSession, User } from "@/auth/sessions";
+import { getCurrentSession } from "@/auth/sessions";
 import React from "react";
 import PrivacyFields from "./fields";
 import { redirect } from "next/navigation";

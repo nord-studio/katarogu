@@ -35,7 +35,8 @@ export async function GET(request: Request): Promise<Response> {
 	let tokens: OAuth2Tokens;
 	try {
 		tokens = await github.validateAuthorizationCode(code);
-	} catch (e) {
+	} catch (err) {
+		console.error(err);
 		// Invalid code or client credentials
 		return new Response(null, {
 			status: 302,
@@ -53,7 +54,7 @@ export async function GET(request: Request): Promise<Response> {
 
 	const githubUser = await githubUserResponse.json();
 	const githubUserId = githubUser.id;
-	let githubUsername = githubUser.login;
+	const githubUsername = githubUser.login;
 
 	if (flow === "link") {
 		/// ---

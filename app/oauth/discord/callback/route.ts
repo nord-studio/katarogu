@@ -34,8 +34,9 @@ export async function GET(request: Request): Promise<Response> {
 
 	let tokens: OAuth2Tokens;
 	try {
-		tokens = await discord.validateAuthorizationCode(code);
-	} catch (e) {
+		tokens = await discord.validateAuthorizationCode(code, null);
+	} catch (err) {
+		console.error(err);
 		// Invalid code or client credentials
 		return new Response(null, {
 			status: 302,

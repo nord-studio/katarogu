@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 export async function GET(request: NextRequest): Promise<Response> {
 	const flow = request.nextUrl.searchParams.get("flow") ?? "auth";
 	const state = generateState();
-	const url = discord.createAuthorizationURL(state, ["email", "identify"])
+	const url = discord.createAuthorizationURL(state, null, ["email", "identify"]);
 
 	(await cookies()).set("discord_oauth_flow", flow, {
 		path: "/",

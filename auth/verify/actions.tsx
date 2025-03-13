@@ -4,11 +4,11 @@ import { ActionResult } from "@/components/form";
 import client from "@/lib/mongodb";
 import { redirect } from "next/navigation";
 import { render } from "jsx-email";
-import { alphabet, generateRandomString } from "oslo/crypto";
 import VerifyAccountEmail from "@/auth/verify/email";
 import { createTransport } from "nodemailer";
 import { createSession, generateSessionToken, getCurrentSession, invalidateSession, UsersCollection } from "../sessions";
 import { setSessionTokenCookie } from "../cookies";
+import { generateRandomString, RandomReader } from "@oslojs/crypto/random";
 
 // Email actions
 export async function generateEmailVerificationCode(userId: string, email: string): Promise<string> {
@@ -22,7 +22,13 @@ export async function generateEmailVerificationCode(userId: string, email: strin
 	}
 
 	// Generate a new code
-	const code = generateRandomString(6, alphabet("0-9"));
+	const alphabet = "1234567890";
+	const random: RandomReader = {
+		read(bytes) {
+			crypto.getRandomValues(bytes);
+		}
+	};
+	const code = generateRandomString(random, alphabet, 6);
 
 	// Insert the new code
 	await client.db().collection("verification_codes").insertOne({

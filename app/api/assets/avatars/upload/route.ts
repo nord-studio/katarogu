@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 	} else {
 		await client.connect();
 
-		client.db().collection<{ _id: string, type: string, size: number, data: any }>("avatars").insertOne({
+		client.db().collection<{ _id: string, type: string, size: number, data: Buffer<ArrayBuffer> }>("avatars").insertOne({
 			_id: user.id,
 			type: file.type,
 			size: file.size,

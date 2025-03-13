@@ -1,7 +1,7 @@
 import { getCurrentSession } from "@/auth/sessions";
 
 export async function GET() {
-	const { session, user } = await getCurrentSession();
+	const { user } = await getCurrentSession();
 
 	if (!user) return new Response(JSON.stringify(null), { status: 401 });
 

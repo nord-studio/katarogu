@@ -2,10 +2,10 @@ import minio from "@/lib/minio";
 import client from "@/lib/mongodb";
 
 export async function GET(_: Request, props: { params: Promise<{ id: string }> }) {
-    const params = await props.params;
-    if (process.env.USE_S3 === "true") {
+	const params = await props.params;
+	if (process.env.USE_S3 === "true") {
 		// S3
-		let res = await minio.getObject("public", `avatars/${params.id}`).then(async (res) => {
+		const res = await minio.getObject("public", `avatars/${params.id}`).then(async (res) => {
 			let buffer = Buffer.from("");
 
 			for await (const chunk of res) {
@@ -19,6 +19,7 @@ export async function GET(_: Request, props: { params: Promise<{ id: string }> }
 				}
 			});
 		}).catch(async (err) => {
+			console.error(err);
 			return new Response("Failed to find avatar", {
 				status: 404
 			});
@@ -29,7 +30,7 @@ export async function GET(_: Request, props: { params: Promise<{ id: string }> }
 		// MongoDB
 		await client.connect();
 
-		const avatar = await client.db().collection<{ _id: string, type: string, data: any }>("avatars").findOne({
+		const avatar = await client.db().collection<{ _id: string, type: string, data: { buffer: string } }>("avatars").findOne({
 			_id: params.id
 		});
 
