@@ -1,7 +1,7 @@
 "use client"
 
-import { useFormState, useFormStatus } from "react-dom";
-import React from "react";
+import { useFormStatus } from "react-dom";
+import React, { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { resendVerificationEmail, verifyAccount } from "@/auth/verify/actions";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
@@ -10,7 +10,7 @@ import { REGEXP_ONLY_DIGITS } from "input-otp";
 import Spinner from "@/components/ui/spinner";
 
 export default function VerifyAccountForm({ code }: { code?: string | undefined }) {
-	const [state, formAction] = useFormState(verifyAccount, {
+	const [state, formAction] = useActionState(verifyAccount, {
 		error: false,
 		message: ""
 	});

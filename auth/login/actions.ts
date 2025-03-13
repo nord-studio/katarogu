@@ -7,6 +7,7 @@ import { verify } from "@node-rs/argon2"
 import { createSession, generateSessionToken, UsersCollection } from "../sessions";
 import { setSessionTokenCookie } from "../cookies";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function login(prevState: ActionResult, formData: FormData) {
 	"use server";
@@ -61,6 +62,7 @@ export async function login(prevState: ActionResult, formData: FormData) {
 
 	const sessionToken = generateSessionToken();
 	const session = await createSession(sessionToken, existing._id);
-	setSessionTokenCookie(sessionToken, session.expires_at);
+	await setSessionTokenCookie(sessionToken, session.expires_at);
+
 	redirect("/");
 }

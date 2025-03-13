@@ -2,13 +2,14 @@ import { getCurrentSession } from "@/auth/sessions"
 import { redirect } from "next/navigation";
 import VerifyAccountForm from "@/auth/verify/form";
 
-export default async function VerifyAccountPage({
-	searchParams
-}: {
-	searchParams: {
-		code: string | undefined
+export default async function VerifyAccountPage(
+	props: {
+		searchParams: Promise<{
+			code: string | undefined
+		}>
 	}
-}) {
+) {
+	const searchParams = await props.searchParams;
 	const { user } = await getCurrentSession();
 
 	if (!user) {

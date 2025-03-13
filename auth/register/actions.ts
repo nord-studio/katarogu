@@ -104,7 +104,7 @@ export async function register(prevState: ActionResult, formData: FormData) {
 
 	const sessionToken = generateSessionToken();
 	const session = await createSession(sessionToken, userId);
-	setSessionTokenCookie(sessionToken, session.expires_at);
+	await setSessionTokenCookie(sessionToken, session.expires_at);
 
 	const code = await generateEmailVerificationCode(userId, email);
 

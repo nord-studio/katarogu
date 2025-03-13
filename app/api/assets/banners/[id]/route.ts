@@ -2,11 +2,9 @@ import minio from "@/lib/minio";
 import client from "@/lib/mongodb";
 import { readFileSync } from "fs";
 
-export async function GET(
-	_: Request,
-	{ params }: { params: { id: string } }
-) {
-	if (process.env.USE_S3 === "true") {
+export async function GET(_: Request, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
+    if (process.env.USE_S3 === "true") {
 		const res = await minio.getObject("public", `banners/${params.id}`).then(async (res) => {
 			let buffer = Buffer.from("");
 

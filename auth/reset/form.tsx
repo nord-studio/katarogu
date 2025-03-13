@@ -1,13 +1,14 @@
 "use client"
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
 import { Input } from "@/components/ui/input";
 import { requestPasswordReset, resetPassword } from "./actions";
+import { useActionState } from "react";
 
 export function RequestPasswordResetForm() {
-	const [state, formAction] = useFormState(requestPasswordReset, {
+	const [state, formAction] = useActionState(requestPasswordReset, {
 		error: false,
 		message: ""
 	});
@@ -15,7 +16,7 @@ export function RequestPasswordResetForm() {
 	return (
 		<form
 			action={formAction}
-			className="flex flex-col gap-4 max-w-md w-full"
+			className="flex flex-col gap-4 w-full"
 		>
 			<p className="text-center">
 				{state.message}
@@ -39,7 +40,7 @@ function RequestInnerForm() {
 }
 
 export function PasswordResetForm({ token }: { token: string }) {
-	const [state, formAction] = useFormState(resetPassword, {
+	const [state, formAction] = useActionState(resetPassword, {
 		error: false,
 		message: ""
 	});
@@ -47,7 +48,7 @@ export function PasswordResetForm({ token }: { token: string }) {
 	return (
 		<form
 			action={formAction}
-			className="flex w-full flex-col items-center gap-4"
+			className="flex flex-col gap-4 w-full items-center"
 		>
 			<p className="text-center">
 				{state.message}
@@ -65,8 +66,8 @@ function ResetInnerForm({ token }: { token: string }) {
 			<Input type="password" name="password" placeholder="New Password" required disabled={pending} />
 			<Input type="password" name="passwordConfirm" placeholder="Confirm New Password" required disabled={pending} />
 			<input type="hidden" name="token" value={token} className="hidden" />
-			<div className="flex flex-row gap-2">
-				<Button type="submit" disabled={pending}>
+			<div className="flex flex-row gap-2 w-full">
+				<Button type="submit" disabled={pending} className="w-full">
 					{pending ? <Spinner size={16} /> : "Submit"}
 				</Button>
 			</div>

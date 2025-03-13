@@ -8,7 +8,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 	const state = generateState();
 	const url = discord.createAuthorizationURL(state, ["email", "identify"])
 
-	cookies().set("discord_oauth_flow", flow, {
+	(await cookies()).set("discord_oauth_flow", flow, {
 		path: "/",
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 		sameSite: "lax"
 	});
 
-	cookies().set("discord_oauth_state", state, {
+	(await cookies()).set("discord_oauth_state", state, {
 		path: "/",
 		secure: process.env.NODE_ENV === "production",
 		httpOnly: true,

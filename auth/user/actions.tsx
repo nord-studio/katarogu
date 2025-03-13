@@ -1,7 +1,7 @@
 "use server";
 
 import client from "@/lib/mongodb";
-import { getCurrentSession, invalidateSession, SessionCollection, UsersCollection } from "../sessions";
+import { getCurrentSession, invalidateSession, UsersCollection } from "../sessions";
 import { deleteSessionTokenCookie } from "../cookies";
 import { toBoolean } from "@/lib/utils";
 

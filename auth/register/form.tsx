@@ -2,14 +2,15 @@
 
 import { Input } from "@/components/ui/input";
 import { register } from "@/auth/register/actions";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
+import { useActionState } from "react";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import Spinner from "@/components/ui/spinner";
 
 export default function RegisterForm() {
-	const [state, formAction] = useFormState(register, {
+	const [state, formAction] = useActionState(register, {
 		error: false,
 		message: ""
 	});

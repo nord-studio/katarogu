@@ -84,7 +84,7 @@ export async function validateSessionToken(token: string): Promise<SessionValida
 }
 
 export const getCurrentSession = cache(async (): Promise<SessionValidationResult> => {
-	const token = cookies().get("session")?.value ?? null;
+	const token = (await cookies()).get("session")?.value ?? null;
 	if (token === null) {
 		return { session: null, user: null };
 	}

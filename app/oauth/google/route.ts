@@ -9,7 +9,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 	const codeVerifier = generateCodeVerifier();
 	const url = google.createAuthorizationURL(state, codeVerifier, ["openid", "profile", "email"]);
 
-	cookies().set("google_oauth_flow", flow, {
+	(await cookies()).set("google_oauth_flow", flow, {
 		path: "/",
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
@@ -17,7 +17,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 		sameSite: "lax"
 	});
 
-	cookies().set("google_oauth_state", state, {
+	(await cookies()).set("google_oauth_state", state, {
 		path: "/",
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 		sameSite: "lax"
 	});
 
-	cookies().set("google_code_verifier", codeVerifier, {
+	(await cookies()).set("google_code_verifier", codeVerifier, {
 		path: "/",
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",

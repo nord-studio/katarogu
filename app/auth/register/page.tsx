@@ -11,7 +11,6 @@ export default function RegisterPage() {
 						<h1 className="text-center font-display text-3xl font-bold sm:text-4xl">
 							Sign up for Katarogu
 						</h1>
-
 						<p className="text-sm text-neutral-500 sm:text-base">
 							Create an account today to get started.
 						</p>

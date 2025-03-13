@@ -1,11 +1,9 @@
 import minio from "@/lib/minio";
 import client from "@/lib/mongodb";
 
-export async function GET(
-	_: Request,
-	{ params }: { params: { id: string } }
-) {
-	if (process.env.USE_S3 === "true") {
+export async function GET(_: Request, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
+    if (process.env.USE_S3 === "true") {
 		// S3
 		let res = await minio.getObject("public", `avatars/${params.id}`).then(async (res) => {
 			let buffer = Buffer.from("");

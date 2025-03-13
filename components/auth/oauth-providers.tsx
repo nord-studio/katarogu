@@ -1,10 +1,9 @@
 "use client";
 
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { Icons } from "../icons";
 import React from "react";
-import Spinner from "../ui/spinner";
 import { toast } from "sonner";
 
 export default function OAuthProviders() {
@@ -51,7 +50,7 @@ export default function OAuthProviders() {
 
 	return (
 		<>
-			<div className="w-full flex flex-row gap-4 items-center justify-center">
+			<div className="grid grid-cols-3 gap-4 w-full">
 				<Button
 					className="w-full"
 					variant="outline"

@@ -1,6 +1,6 @@
 "use client"
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 
 interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
 	children: React.ReactNode;
@@ -8,7 +8,7 @@ interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
 }
 
 export default function Form({ children, formAction: action, ...props }: FormProps) {
-	const [state, formAction] = useFormState(action, {
+	const [state, formAction] = useActionState(action, {
 		error: false,
 		message: ""
 	});

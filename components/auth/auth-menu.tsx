@@ -19,20 +19,30 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "usehooks-ts"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginForm from "@/auth/login/form";
 import RegisterForm from "@/auth/register/form";
 import { RequestPasswordResetForm } from "@/auth/reset/form";
 import OAuthProviders from "./oauth-providers";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function AuthMenu() {
 	const [open, setOpen] = useState(false);
+	const [mounted, setMounted] = useState(false);
 	const [mode, setMode] = useState<"login" | "register" | "reset">("login");
 	const isDesktop = useMediaQuery("(min-width: 768px)");
 
 	const changeMode = (mode: "login" | "register" | "reset") => {
 		setMode(mode);
 	};
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	if (!mounted) return (
+		<Skeleton className="w-[77px] h-[36px]" />
+	)
 
 	if (isDesktop) {
 		return (
@@ -61,7 +71,7 @@ export default function AuthMenu() {
 									<>
 										<div className="flex flex-col gap-4">
 											<OAuthProviders />
-										</div> 
+										</div>
 										<div className="w-full py-2 flex items-center">
 											<hr className="w-full border-t border-black/10 dark:border-white/10" />
 										</div>

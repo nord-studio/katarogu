@@ -164,7 +164,7 @@ export async function resetPassword(_: unknown, formData: FormData): Promise<Act
 		};
 	}
 
-	invalidateSession(data.user_id);
+	await invalidateSession(data.user_id);
 
 	const passwordHash = await hash(password, {
 		memoryCost: 19456,
@@ -187,7 +187,7 @@ export async function resetPassword(_: unknown, formData: FormData): Promise<Act
 
 	const sessionToken = generateSessionToken();
 	const session = await createSession(sessionToken, data.user_id);
-	setSessionTokenCookie(sessionToken, session.expires_at);
+	await setSessionTokenCookie(sessionToken, session.expires_at);
 
 	return redirect("/");
 }

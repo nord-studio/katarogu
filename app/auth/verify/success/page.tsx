@@ -1,7 +1,15 @@
+import { getCurrentSession } from "@/auth/sessions";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function VerifyAccountSuccessPage() {
+export default async function VerifyAccountSuccessPage() {
+	const { user } = await getCurrentSession();
+
+	if (!user) {
+		return redirect("/auth/login");
+	}
+
 	return (
 		<>
 			<div className="flex flex-col items-center h-snug justify-center text-center w-full gap-6">
@@ -20,9 +28,9 @@ export default function VerifyAccountSuccessPage() {
 						</Button>
 					</Link>
 					<Link href="/account">
-					<Button>
+						<Button>
 							Continue to Account
-					</Button>
+						</Button>
 					</Link>
 				</div>
 			</div>

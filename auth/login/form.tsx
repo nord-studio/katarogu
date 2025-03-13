@@ -2,14 +2,14 @@
 
 import { Input } from "@/components/ui/input";
 import { login } from "@/auth/login/actions";
-import { useFormState, useFormStatus } from "react-dom";
-import React from "react";
+import { useFormStatus } from "react-dom";
+import React, { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import Spinner from "@/components/ui/spinner";
 
 export default function LoginForm() {
-	const [state, formAction] = useFormState(login, {
+	const [state, formAction] = useActionState(login, {
 		error: false,
 		message: ""
 	});
