@@ -6,7 +6,7 @@ import * as React from "react";
 
 import { useMediaQuery } from "usehooks-ts";
 import { Button, ButtonProps } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import ReactCrop, { Crop, centerCrop, makeAspectCrop } from "react-image-crop";
 import { toast } from "sonner";
@@ -199,6 +199,10 @@ export default function BannerUpload(props: ButtonProps) {
 					onChange={onSelectFile}
 				/>
 				<Dialog open={open} onOpenChange={onOpenChange}>
+					<DialogHeader className="hidden">
+						<DialogTitle />
+						<DialogDescription />
+					</DialogHeader>
 					<DialogContent className="w-full max-w-fit gap-0 p-0">
 						<ReactCrop
 							crop={crop}

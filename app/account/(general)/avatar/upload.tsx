@@ -5,7 +5,7 @@
 import * as React from "react";
 
 import { Button, ButtonProps } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import ReactCrop, { Crop, centerCrop, makeAspectCrop } from "react-image-crop";
 import { toast } from "sonner";
@@ -209,6 +209,10 @@ export default function AvatarUpload(props: ButtonProps) {
 				/>
 				<Dialog open={open} onOpenChange={onOpenChange}>
 					<DialogContent className="w-full max-w-fit gap-0 p-0">
+						<DialogHeader className="hidden">
+							<DialogTitle />
+							<DialogDescription />
+						</DialogHeader>
 						<ReactCrop
 							crop={crop}
 							onChange={(_, p) => setCrop(p)}
@@ -217,6 +221,7 @@ export default function AvatarUpload(props: ButtonProps) {
 							minHeight={100}
 							circularCrop
 							keepSelection
+							className="rounded-t-lg"
 						>
 							<img
 								alt="Cropper"
