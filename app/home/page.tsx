@@ -22,7 +22,7 @@ export default function HomePage() {
 							</div>
 						</div>
 						<div className="flex flex-row gap-4">
-							<Link href="https://github.com/tygrdotdev/katarogu">
+							<Link href="https://github.com/nord-studio/katarogu">
 								<Button variant="outline">Learn More</Button>
 							</Link>
 							<Link href="/auth/register" passHref>
